@@ -39,3 +39,12 @@ CREATE TABLE Student (
 INSERT INTO Student (StudentID, FirstName, LastName) 
 SELECT DISTINCT Id, SUBSTRING_INDEX(Name, ' ', 1), SUBSTRING_INDEX(Name, ' ', -1) 
 FROM UNF;
+
+DROP TABLE IF EXISTS School;
+
+CREATE TABLE School AS SELECT DISTINCT 0 AS SchoolId, School As Name, City FROM UNF;
+
+SET @Id = 0;
+
+UPDATE School SET SchoolId = (SELECT @Id := @Id + 1);
+ALTER TABLE School ADD PRIMARY KEY(SchoolId);
