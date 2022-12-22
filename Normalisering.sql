@@ -48,3 +48,13 @@ SET @Id = 0;
 
 UPDATE School SET SchoolId = (SELECT @Id := @Id + 1);
 ALTER TABLE School ADD PRIMARY KEY(SchoolId);
+
+DROP TABLE IF EXISTS StudentSchool;
+CREATE TABLE StudentSchool AS SELECT DISTINCT UNF.Id AS StudentId, School.SchoolId FROM UNF INNER JOIN School ON UNF.School = School.Name;
+ALTER TABLE StudentSchool MODIFY COLUMN StudentId INT;
+ALTER TABLE StudentSchool MODIFY COLUMN SchoolId INT;
+ALTER TABLE StudentSchool ADD PRIMARY KEY (StudentId, SchoolId);
+
+
+
+
