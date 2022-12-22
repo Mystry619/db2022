@@ -49,6 +49,8 @@ SET @Id = 0;
 UPDATE School SET SchoolId = (SELECT @Id := @Id + 1);
 ALTER TABLE School ADD PRIMARY KEY(SchoolId);
 
+
+
 DROP TABLE IF EXISTS StudentSchool;
 CREATE TABLE StudentSchool AS SELECT DISTINCT UNF.Id AS StudentId, School.SchoolId FROM UNF INNER JOIN School ON UNF.School = School.Name;
 ALTER TABLE StudentSchool MODIFY COLUMN StudentId INT;
@@ -63,8 +65,13 @@ CREATE TABLE Phone (
 	Type VARCHAR(32),
 	Number VARCHAR(32) NOT NULL,
 	CONSTRAINT PRIMARY KEY(PhoneId));
+
 INSERT INTO Phone(StudentId,Type,Number) SELECT Id AS StudentId, "Home" AS Type, HomePhone AS Number FROM UNF WHERE HomePhone IS NOT NULL AND HomePhone != ''
 UNION SELECT Id AS StudentId, "Job" AS TYPE, JobPhone AS Number FROM UNF WHERE JobPhone IS NOT NULL AND JobPhone != ''
 UNION SELECT Id AS StudnetId, "Mobil" AS Type, MobilPhone1 AS Number FROM UNF WHERE MobilPhone1 IS NOT NULL AND MobilPhone1 != ''
 UNION SELECT Id AS StudentId, "Mobil" AS Type, MobilPhone2 AS Number FROM UNF WHERE MobilPhone2 IS NOT NULL AND MobilPhone2 != '';
+
+DROP VIEW IF EXISTS PhoneList;
+CREATE VIEW PhoneList AS SELECT StudentId, group_concat(Number) AS Numbers FROM Phone GROUP BY StudentId;
+
 
