@@ -56,5 +56,15 @@ ALTER TABLE StudentSchool MODIFY COLUMN SchoolId INT;
 ALTER TABLE StudentSchool ADD PRIMARY KEY (StudentId, SchoolId);
 
 
-
+DROP TABLE IF EXISTS Phone;
+CREATE TABLE Phone (
+	PhoneId INT NOT NULL AUTO_INCREMENT,
+	StudentId INT NOT NULL,
+	Type VARCHAR(32),
+	Number VARCHAR(32) NOT NULL,
+	CONSTRAINT PRIMARY KEY(PhoneId));
+INSERT INTO Phone(StudentId,Type,Number) SELECT Id AS StudentId, "Home" AS Type, HomePhone AS Number FROM UNF WHERE HomePhone IS NOT NULL AND HomePhone != ''
+UNION SELECT Id AS StudentId, "Job" AS TYPE, JobPhone AS Number FROM UNF WHERE JobPhone IS NOT NULL AND JobPhone != ''
+UNION SELECT Id AS StudnetId, "Mobil" AS Type, MobilPhone1 AS Number FROM UNF WHERE MobilPhone1 IS NOT NULL AND MobilPhone1 != ''
+UNION SELECT Id AS StudentId, "Mobil" AS Type, MobilPhone2 AS Number FROM UNF WHERE MobilPhone2 IS NOT NULL AND MobilPhone2 != '';
 
