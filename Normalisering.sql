@@ -86,6 +86,42 @@ INSERT INTO Hobbies(Name)
 SELECT DISTINCT Hobby FROM (
 	SELECT Id as StudentId, TRIM(SUBSTRING_INDEX(Hobbies,",",1)) AS Hobby FROM UNF Where Hobbies != ""
 	UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies,",",-2),",",1)) FROM UNF WHERE Hobbies != ""
-	UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(Hobbies,",",-1)) FROM UNF WHERE Hobbies != "") AS Hobbies;
+	UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(Hobbies,",",-1)) FROM UNF WHERE Hobbies != "") AS Hobbies2;
+
+
+DROP TABLE IF EXISTS StudentHobby;
+CREATE TABLE StudentHobby(
+        StudentId INT NOT NULL,
+        HobbyId INT NOT NULL,
+        CONSTRAINT PRIMARY KEY (StudentId, HobbyId))
+ENGINE = INNODB;
+
+INSERT INTO StudentHobby(StudentId,HobbyId)
+SELECT DISTINCT StudentId,HobbyId FROM (
+        SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(Hobbies, ",", 1)) AS Hobby FROM UNF
+  WHERE HOBBIES != ""
+  UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(substring_index(Hobbies, ",", -2),"," ,1)) FROM UNF
+  WHERE HOBBIES != ""
+  UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(Hobbies, ",", -1)) FROM UNF
+  WHERE HOBBIES != ""
+) AS Hobbies2 INNER JOIN Hobbies ON Hobbies2.Hobby = Hobbies.Name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
