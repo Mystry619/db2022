@@ -111,7 +111,18 @@ DROP VIEW IF EXISTS HobbiesList;
 CREATE VIEW HobbiesList AS SELECT StudentId, group_concat(Name) FROM StudentHobby JOIN Hobbies USING (HobbyId) GROUP BY StudentId;
 
 
+DROP TABLE IF EXISTS Grade;
+CREATE TABLE Grade(
+	GradeId INT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(255) NOT NULL,
+	CONSTRAINT PRIMARY KEY(GradeId))
+ENGINE = INNODB;
 
+INSERT INTO Grade(Name) SELECT DISTINCT Grade FROM UNF;
+
+ALTER TABLE Student ADD COLUMN GradeID INT NOT NULL;
+
+UPDATE Student JOIN UNF ON (StudentID = Id) JOIN Grade ON Grade.Name = UNF.Grade SET Student.GradeId = Grade.GradeId;
 
 
 
