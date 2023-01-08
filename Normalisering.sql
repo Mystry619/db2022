@@ -107,7 +107,8 @@ SELECT DISTINCT StudentId,HobbyId FROM (
 ) AS Hobbies2 INNER JOIN Hobbies ON Hobbies2.Hobby = Hobbies.Name;
 
 
-
+DROP VIEW IF EXISTS HobbiesList;
+CREATE VIEW HobbiesList AS SELECT StudentId, group_concat(Name) FROM StudentHobby JOIN Hobbies USING (HobbyId) GROUP BY StudentId;
 
 
 
