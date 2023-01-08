@@ -108,7 +108,7 @@ SELECT DISTINCT StudentId,HobbyId FROM (
 
 
 DROP VIEW IF EXISTS HobbiesList;
-CREATE VIEW HobbiesList AS SELECT StudentId, group_concat(Name) FROM StudentHobby JOIN Hobbies USING (HobbyId) GROUP BY StudentId;
+CREATE VIEW HobbiesList AS SELECT StudentId, group_concat(Name) AS Name FROM StudentHobby JOIN Hobbies USING (HobbyId) GROUP BY StudentId;
 
 
 DROP TABLE IF EXISTS Grade;
@@ -127,7 +127,14 @@ UPDATE Student JOIN UNF ON (StudentID = Id) JOIN Grade ON Grade.Name = UNF.Grade
 
 
 
-
+DROP VIEW IF EXISTS Avslut;
+CREATE VIEW Avslut AS
+SELECT StudentId as ID, Student.FirstName,Student.LastName, Grade.Name AS Grade, HobbiesList.Name, School.Name AS School, City, Numbers FROM StudentSchool
+LEFT JOIN Student USING (StudentId)
+LEFT JOIN Grade USING (GradeId)
+LEFT JOIN HobbiesList USING (StudentId)
+LEFT JOIN School USING (SchoolId)
+LEFT JOIN PhoneList USING (StudentId);
 
 
 
