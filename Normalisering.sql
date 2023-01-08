@@ -75,3 +75,17 @@ DROP VIEW IF EXISTS PhoneList;
 CREATE VIEW PhoneList AS SELECT StudentId, group_concat(Number) AS Numbers FROM Phone GROUP BY StudentId;
 
 
+DROP TABLE IF EXISTS Hobbies;
+CREATE TABLE Hobbies(
+	HobbyId INT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(255) NOT NULL,
+	CONSTRAINT PRIMARY KEY (HobbyId))
+ENGINE = INNODB;
+
+INSERT INTO Hobbies(Name)
+SELECT DISTINCT Hobby FROM (
+	SELECT Id as StudentId, TRIM(SUBSTRING_INDEX(Hobbies,",",1)) AS Hobby FROM UNF Where Hobbies != ""
+	UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies,",",-2),",",1)) FROM UNF WHERE Hobbies != ""
+	UNION SELECT Id AS StudentId, TRIM(SUBSTRING_INDEX(Hobbies,",",-1)) FROM UNF WHERE Hobbies != "") AS Hobbies;
+
+
