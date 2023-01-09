@@ -10,3 +10,6 @@ Detta är min redovisning från denna kurs.
 
 
 ## Normalisera databas
+cd wc
+cd db2022
+docker exec -i iths-mysql mysql -iths -uiths < 	Normalisering.sql
