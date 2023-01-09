@@ -120,16 +120,29 @@ ENGINE = INNODB;
 
 INSERT INTO Grade(Name) SELECT DISTINCT Grade FROM UNF;
 
-ALTER TABLE Student ADD COLUMN GradeID INT NOT NULL;
 
-UPDATE Student JOIN UNF ON (StudentID = Id) JOIN Grade ON Grade.Name = UNF.Grade SET Student.GradeId = Grade.GradeId;
+DROP TABLE IF EXISTS StudentGrade;
+CREATE TABLE StudentGrade AS SELECT DISTINCT Id As StudentId, GradeId from UNF JOIN Grade on Grade.Name = UNF.
+Grade;
+
+
+
+ALTER TABLE StudentGrade MODIFY COLUMN StudentId INT;
+ALTER TABLE StudentGrade ADD PRIMARY KEY (StudentId, GradeId);
+ALter TABLE StudentGrade MODIFY COLUMN GradeId INT NOT NULL;
  
+
+
+DROP VIEW IF EXISTS GradeList;
+CREATE VIEW GradeList AS SELECT StudentId,group_concat(Name) AS Grade FROM StudentGrade JOIN Grade USING (GradeId) GROUP BY StudentId;
+
+
 
 DROP VIEW IF EXISTS Avslut;
 CREATE VIEW Avslut AS
-SELECT StudentId as ID, Student.FirstName,Student.LastName, Grade.Name AS Grade, HobbiesList.Name As Hobbies, School.Name AS School, City, Numbers FROM StudentSchool
+SELECT StudentId as ID, Student.FirstName,Student.LastName,Grade, HobbiesList.Name As Hobbies, School.Name AS School, City, Numbers FROM StudentSchool
 LEFT JOIN Student USING (StudentId)
-LEFT JOIN Grade USING (GradeId)
+LEFT JOIN GradeList USING (StudentId)
 LEFT JOIN HobbiesList USING (StudentId)
 LEFT JOIN School USING (SchoolId)
 LEFT JOIN PhoneList USING (StudentId);
