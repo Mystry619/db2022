@@ -16,7 +16,7 @@ cd wc
 
 cd db2022
 
-docker exec -i iths-mysql mysql -iths -uiths < 	Normalisering.sql
+docker exec -i iths-mysql mysql -uiths -piths < Normalisering.sql
 
 
 
