@@ -12,7 +12,7 @@ Detta är min redovisning från denna kurs.
 ## Normalisera databas
 
 
-cd wc
+cd ws
 
 cd db2022
 
