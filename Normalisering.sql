@@ -123,13 +123,11 @@ INSERT INTO Grade(Name) SELECT DISTINCT Grade FROM UNF;
 ALTER TABLE Student ADD COLUMN GradeID INT NOT NULL;
 
 UPDATE Student JOIN UNF ON (StudentID = Id) JOIN Grade ON Grade.Name = UNF.Grade SET Student.GradeId = Grade.GradeId;
-
-
-
+ 
 
 DROP VIEW IF EXISTS Avslut;
 CREATE VIEW Avslut AS
-SELECT StudentId as ID, Student.FirstName,Student.LastName, Grade.Name AS Grade, HobbiesList.Name, School.Name AS School, City, Numbers FROM StudentSchool
+SELECT StudentId as ID, Student.FirstName,Student.LastName, Grade.Name AS Grade, HobbiesList.Name As Hobbies, School.Name AS School, City, Numbers FROM StudentSchool
 LEFT JOIN Student USING (StudentId)
 LEFT JOIN Grade USING (GradeId)
 LEFT JOIN HobbiesList USING (StudentId)
