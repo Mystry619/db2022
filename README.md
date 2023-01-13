@@ -30,7 +30,7 @@ gradle run
 När vi köra den här koden kommer vi få ArtistId, Artists Name, AlbumId, Albums Title och antal Tracks på varje Album.
 
 
-## köra java app på test grenen
+## Köra java app på test grenen
 CRUD är ett begrepp man ofta använder i utveckling, och framförallt med databaser. Den står för Create, Read, Update samt Delete.
 
 cd ws
@@ -38,4 +38,6 @@ cd ws
 cd db2022
 
 gradle check
+
+Vi får en livscykel för entiteter i databaser.
 
