@@ -17,4 +17,20 @@ docker exec -i iths-mysql mysql -uiths -piths < Normalisering.sql
 
 
 
+## Köra java app på main gradle
+Vi ansluter till MySQL och Chinook databasen och gör en lite komplexare ORM (Object Relational Mapping).
+
+cd ws
+
+cd db2022
+
+gradle run
+
+
+När vi köra den här koden kommer vi få ArtistId,Artist Name,AlbumId,Album och antal Track på varje Album.
+
+
+
+
+
 
