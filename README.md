@@ -17,7 +17,7 @@ docker exec -i iths-mysql mysql -uiths -piths < Normalisering.sql
 
 
 
-## Köra java app på main gradle
+## Köra java app på main grenen
 Vi ansluter till MySQL och Chinook databasen och gör en lite komplexare ORM (Object Relational Mapping).
 
 cd ws
@@ -27,10 +27,15 @@ cd db2022
 gradle run
 
 
-När vi köra den här koden kommer vi få ArtistId,Artist Name,AlbumId,Album och antal Track på varje Album.
+När vi köra den här koden kommer vi få ArtistId, Artists Name, AlbumId, Albums Title och antal Tracks på varje Album.
 
 
+## köra java app på test grenen
+CRUD är ett begrepp man ofta använder i utveckling, och framförallt med databaser. Den står för Create, Read, Update samt Delete.
 
+cd ws
 
+cd db2022
 
+gradle check
 
