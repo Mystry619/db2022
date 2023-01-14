@@ -39,5 +39,6 @@ cd db2022
 
 gradle check
 
-Vi får en livscykel för entiteter i databaser.
-
+Vi får en livscykel för entiteter i databaser. Det vi gör att vi skapa en Employees table består av Id,Name,Job.
+Första method är att vi skapa två rad, andra method är att vi select allt på table, tredje
+method där vi uppdater andra raden på Job cloumn, fjärde method vi tar bort allt på table.
